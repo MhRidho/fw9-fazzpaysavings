@@ -1,18 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import React from 'react'
-import Partners from '../assets/img/partners.png';
-import PngPhone from '../assets/img/PngPhonePurple-min.png'
-import PngPhone2 from '../assets/img/PngPhone2Purple.png'
-import PngPhone3 from '../assets/img/PngPhone3Purple-min.png'
-import Profile from '../assets/img/1.png'
+import Image from 'next/image';
+import Partners from '../../assets/img/partners.png';
+import PngPhone from '../../assets/img/PngPhonePurple-min.png'
+import PngPhone2 from '../../assets/img/PngPhone2Purple.png'
+import PngPhone3 from '../../assets/img/PngPhone3Purple-min.png'
+import Profile from '../../assets/img/1.png'
 import { FiArrowRight, FiArrowLeft, FiPhone, FiLock, FiDownload } from 'react-icons/fi';
-import Logo from '../assets/img/logo-savings.png'
+import logo from '../../assets/img/logo savings.png'
 import { Container } from 'react-bootstrap';
-import Link from 'next/link';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       {/* START HEADER */}
@@ -20,12 +17,12 @@ export default function Home() {
         <Container className='pt-4'>
           <nav>
             <div className='logo'>
-              <Image src={Logo} alt='logo.png' />
+              <Image src={logo} alt='logo.png' />
               <h1>Savings</h1>
             </div>
             <div className='buttonlanding'>
-              <button className='b-login'><Link href={'/auth'} clasName="a-login">Login</Link></button >
-              <button className='b-sign'><Link href={'/auth/register'} className="a-sign">Sign Up</Link></button >
+              <button className='b-login'><a to={'/login'} clasName="a-login">Login</a></button >
+              <button className='b-sign'><a to={'/sign-up'} className="a-sign">Sign Up</a></button >
             </div>
           </nav>
           <main>
@@ -35,7 +32,7 @@ export default function Home() {
                   For Saving Time.</h1>
                 <p>We bring you a mobile app for banking problems that<br />
                   oftenly wasting much of your times.</p>
-                <button className="b-sign"><Link href={'/auth/register'} className="a-sign">Try It Home</Link></button>
+                <button className="b-sign"><a to={'/home'} className="a-sign">Try It Home</a></button>
                 {/* <h1>{count}</h1> */}
               </div>
             </div>
@@ -186,3 +183,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home;

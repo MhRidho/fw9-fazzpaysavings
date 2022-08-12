@@ -3,8 +3,13 @@
   background-color: #7858A6;
 }
 
+header {
+  background-image: url(../assets/img/MaskGroupPurple-min.png);
+  background-size: cover;
+}
+
 .cover {
-  /* background-image: url(../img/Mask-Group-Purple-min.png); */
+  background-image: url(../assets/img/Mask-Group-Purple-min.png);
   background-repeat: no-repeat;
 }
 
@@ -469,6 +474,10 @@ footer {
   border-left: 5px solid #7858A6;
 }
 
+.color-371B58 {
+  color: #371B58;
+}
+
 
 
 
@@ -720,18 +729,22 @@ header main div div.aside button a {
 
 
 
+a {
+  text-decoration: none !important;
+}
 
 
 
-.home-wallet {
-  text-decoration: none;
-  font-weight: 700;
-  color: white;
-  font-size: 29px;
+
+.cover h2 a.home-wallet {
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  color: white !important;
+  font-size: 29px !important;
 }
 
 .cover {
-  /* background-image: url(/src/assets/img/Mask-Group-Purple-min.png); */
+  background-image: url(../assets/img/Mask-Group-Purple-min.png);
   background-repeat: no-repeat;
 }
 
@@ -1383,7 +1396,7 @@ footer div.numb {
 
 @media screen and (max-width: 768px) {
   header {
-    /* background-image: url(../img/MaskGroupPurple-min.png); */
+    background-image: url(../assets/img/MaskGroupPurple-min.png);
     background-size: cover;
     padding: 63px 30px 20px;
   }

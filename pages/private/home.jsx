@@ -1,10 +1,10 @@
 import React from 'react'
-import Main from '../components/layout/PrivateMain';
+import Main from '../../components/layout/PrivateMain';
 import { Col, Row } from 'react-bootstrap';
 import { FiArrowUp, FiPlus, FiArrowDown } from 'react-icons/fi';
 import Image from 'next/image';
-import Graphic from '../assets/img/graphicPurple.png';
-import Satu from '../assets/img/sam1.png';
+import Graphic from '../../assets/img/graphicPurple.png';
+import Satu from '../../assets/img/sam1.png';
 
 const home = () => {
   return (

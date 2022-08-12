@@ -5,14 +5,13 @@ import Robert52 from '../../assets/img/Robert52.png';
 import { FiBell, FiGrid, FiArrowUp, FiPlus, FiUser, FiLogOut } from 'react-icons/fi';
 import Image from 'next/image';
 
-
 const PrivateMain = (props) => {
   return (
     <>
       <Navbar className="bg-white rounded-bottom shadow bg-body">
-        <Container className=' px-5 py-4'>
+        <Container className='px-5 py-4'>
           <Navbar.Brand className='fw-bold'>Savings</Navbar.Brand>
-          <Navbar.Toggle className='' />
+          <Navbar.Toggle />
           <Navbar.Collapse className=" d-flex justify-content-end gap-3">
             <Row>
               <Navbar.Text>
@@ -33,30 +32,30 @@ const PrivateMain = (props) => {
           </Navbar.Collapse>
         </Container>
       </Navbar >
-      <Container className='py-5 border'>
+      <Container className='py-5'>
         <Row>
-          <Col className='py-md-4 d-flex flex-column gap-5 border justify-content-between'>
+          <Col className='py-md-4 d-flex flex-column gap-5 justify-content-between bg-white rounded-4 shadow'>
             <Row className='d-flex flex-column gap-5'>
-              <li className="nav-item">
-                <a className="ank-menu" to={'/home'}><FiGrid className='mx-4 fs-24px' />Dashboard</a>
+              <li className="ank-menu">
+                <FiGrid className='mx-4 fs-24px' /><Link href={'/private/home'}><a className="color-371B58">Dashboard</a></Link>
               </li>
-              <li className="nav-item">
-                <a className="ank-menu" to={'/search-receiver'}><FiArrowUp className='mx-4 fs-24px' />Transfer</a>
+              <li className="ank-menu">
+                <FiArrowUp className='mx-4 fs-24px' /><Link href={'/private/transfer'}><a className="color-371B58">Transfer</a></Link>
               </li>
-              <li className="nav-item">
-                <a className="ank-menu" to={'/top-up'}><FiPlus className='mx-4 fs-24px' />Top Up</a>
+              <li className="ank-menu">
+                <FiPlus className='mx-4 fs-24px' /><Link href={'/private/top-up'}><a className="color-371B58">Top Up</a></Link>
               </li>
-              <li className="nav-item">
-                <a className="ank-menu" to={'/profile'}><FiUser className='mx-4 fs-24px' />Profile</a>
+              <li className="ank-menu">
+                <FiUser className='mx-4 fs-24px' /><Link href={'/private/profile'}><a className="color-371B58">Profile</a></Link>
               </li>
             </Row>
             <Row>
-              <li className="nav-item li-menu-logout">
-                <a className="ank-menu"><FiLogOut className='mx-4 fs-24px' />Logout</a>
+              <li className="ank-menu">
+                <FiLogOut className='mx-4 fs-24px' /><Link href={'/private/logout'}><a className="color-371B58">Logout</a></Link>
               </li>
             </Row>
           </Col>
-          <Col md={9} className='border p-3'>
+          <Col md={9} className='px-4'>
             <div>{props.children}</div>
           </Col>
         </Row>
