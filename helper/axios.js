@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 
 const axiosApiInstances = axios.create({
-    baseURL: 'https://fazzpay.herokuapp.com/'
+    baseURL: 'https://fazzpay.herokuapp.com'
 });
 
 // add a req interceptor

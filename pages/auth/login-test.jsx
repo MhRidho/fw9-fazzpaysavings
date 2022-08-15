@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import axios from 'axios';
+import axios from '../../helper/axios';
 import Cookies from 'js-cookie';
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
     const handleSubmit = async () => {
         try {
             const result = await axios.post(
-                'https://fazzpay.herokuapp.com/auth/login',
+                '/auth/login',
                 form
             );
             Cookies.set('token', result.data.data.token);

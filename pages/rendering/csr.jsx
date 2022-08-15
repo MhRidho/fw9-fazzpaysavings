@@ -1,12 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from '../../helper/axios';
 
-const csr = () => {
-    return (
-        <div>
-            <h1>csr</h1>
+const CSR = () => {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
+
+  const getDataUser = async () => {
+    try {
+      const result = await axios.get(
+        `user?page=${page}&limit=50&search=&sort=firstName ASC`
+      );
+      setData(result.data.data);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <div>
+      <h1>Rendering With CSR</h1>
+      <hr />
+      {data.map((item) => (
+        <div key={item.id}>
+          <h5>{item.firstName}</h5>
         </div>
-    )
+      ))}
+    </div>
+  );
 }
 
-export default csr
+export default CSR;

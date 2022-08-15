@@ -1,27 +1,32 @@
 import { Container, Row, Col, Form, Alert, InputGroup, Stack, Button } from 'react-bootstrap';
 import WallAuth from "../../components/layout/WallAuth";
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react';
 import { FiMail, FiLock, FiArrowDown } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Router } from 'next/router';
 import axios from '../../helper/axios';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router'
+import Link from 'next/link';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const router = useRouter();
+
+  const [form, setForm] = useState({ email: "", password: "" });
 
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const onLogin = async () => {
     try {
-      const result = await axios.post('auth/login', form);
+      const result = await axios.post('/auth/login', form);
       Cookies.set('token', result.data.data.token);
+      router.push('/private/home');
     } catch (error) {
       console.log(error.response);
+      router.push('/auth');
     }
   };
 
@@ -46,47 +51,43 @@ const Login = () => {
                     we cover all of that for you!
                   </p>
                 </div>
-
                 <div className="mt-5">
-
-                  <Formik>
-                    <Form>
-                      <InputGroup className="mb-5" controlId='formBasicEmail'>
-                        <InputGroup.Text id="basic-addon1" className='inp-logo'><FiMail className='color-A9A9A999 fs-22px' /></InputGroup.Text>
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          id="form"
-                          placeholder="Enter your e-mail"
-                          onChange={handleChangeText}
-                        />
-                        <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroup.Text id="basic-addon1" className='inp-logo'><FiLock className='color-A9A9A999 fs-22px' /></InputGroup.Text>
-                        <Form.Control
-                          type="password"
-                          name="password"
-                          id="form"
-                          placeholder="Enter your password"
-                          onChange={handleChangeText}
-                        />
-                        <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
-                      </InputGroup>
-                      <Stack direction="horizontal" gap={3}>
-                        <div className="ms-auto mt-3 pb-5"><a className="a-menu fs-14px fw-600" to={'/reset-password'}>Forgot password?</a></div>
-                      </Stack>
-                      <div className="d-grid gap-2 pt-5">
-                        <Button className='btn btn-secondary btn-lg ent-email' onClick={handleSubmit} >
-                          Login
-                        </Button>
-                      </div>
-                    </Form>
-                  </Formik>
+                  <div>
+                    <InputGroup className="mb-5" controlId='formBasicEmail'>
+                      <InputGroup.Text id="basic-addon1" className='inp-logo'><FiMail className='color-A9A9A999 fs-22px' /></InputGroup.Text>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        onChange={handleChangeText}
+                        id="form"
+                        placeholder="Enter your e-mail"
+                      />
+                      <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text id="basic-addon1" className='inp-logo'><FiLock className='color-A9A9A999 fs-22px' /></InputGroup.Text>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        onChange={handleChangeText}
+                        id="form"
+                        placeholder="Enter your password"
+                      />
+                      <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
+                    </InputGroup>
+                    <Stack direction="horizontal" gap={3}>
+                      <Link className="a-menu fs-14px fw-600" href={'/auth/reset-password'}><a className="ms-auto mt-3 pb-5">Forgot password?</a></Link>
+                    </Stack>
+                    <div className="d-grid gap-2 pt-5">
+                      <Button className='btn btn-lg btn-secondary btn-login' type='submit' onClick={onLogin}>
+                        Login
+                      </Button>
+                    </div>
+                  </div>
 
                   <div className="form-check form-check-reverse position-relative text-center my-5">
                     <label className="form-check-label">
-                      Dont have an account? lets <a className='have-signup'>Sign Up</a>
+                      Dont have an account? lets <Link href={'/auth/register'} className='have-signup'><a>Sign Up</a></Link>
                     </label>
                   </div>
                 </div>

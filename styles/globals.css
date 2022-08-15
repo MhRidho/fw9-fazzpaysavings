@@ -1,4 +1,8 @@
 /* ----------------NEW------------------ */
+.body {
+  background-color: #FEFBF6;
+}
+
 .background-home {
   background-color: #7858A6;
 }
@@ -146,7 +150,7 @@ header {
 }
 
 .fs-42px {
-  font-size: 42px;
+  font-size: 42px !important;
 }
 
 .f-color-g {
@@ -228,6 +232,7 @@ header {
 .bor-bot-none {
   border-bottom: none !important;
 }
+
 
 
 
@@ -369,14 +374,14 @@ header {
 
 
 .form {
-  border: unset;
+  border: unset !important;
   border-bottom: 1px solid gray;
   border-radius: unset;
   background-color: transparent;
 }
 
 .form:focus {
-  box-shadow: unset;
+  box-shadow: unset !important;
   border-bottom: 1px solid gray;
 }
 
@@ -402,6 +407,14 @@ header {
   color: #88888F;
 }
 
+.btn-login {
+  color: #88888F !important;
+}
+
+.btn-login:hover {
+  color: white !important;
+}
+
 .color-web {
   color: #6379F4;
 }
@@ -420,6 +433,10 @@ header {
 
 .bg-profile {
   background-color: #E5E8ED;
+}
+
+.bg-371B58 {
+  background-color: #371B58!important;
 }
 
 
@@ -484,6 +501,7 @@ footer {
 
 
 
+
 .mar-se {
   margin-right: 150px;
   margin-left: 150px;
@@ -517,6 +535,7 @@ footer {
   font-weight: 700;
   color: white;
   font-size: 29px;
+  border: none !important;
 }
 
 .home-wallet:hover {
@@ -849,7 +868,7 @@ a {
 }
 
 .btn-secondary:hover {
-  background-color: #6379F4 !important;
+  background-color: #4C3575 !important;
   border: unset !important;
   box-shadow: unset !important;
 }
@@ -1482,4 +1501,43 @@ footer div.numb {
     padding-bottom: 20px;
   }
 
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 576px) {
+  .ank-menu:hover {
+    border-left: unset;
+  }
+
+  .ank-menu a {
+    display: none;
+  }
+}
+
+.btn-menu {
+  background-color: white !important;
+  color: #371B58 !important;
+  font-weight: 700 !important;
+  border: unset !important;
+  font-size: 18px !important;
+}
+
+
+
+
+
+
+
+
+.column-transfer {
+  cursor: pointer;
+}
+
+.cursor {
+  cursor: pointer;
 }

@@ -1,28 +1,86 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Main from '../../components/layout/PrivateMain';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import { FiArrowUp, FiPlus, FiArrowDown } from 'react-icons/fi';
 import Image from 'next/image';
 import Graphic from '../../assets/img/graphicPurple.png';
 import Satu from '../../assets/img/sam1.png';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import cookies from "next-cookies";
+import axiosServer from '../../helper/axiosServer';
 
-const home = () => {
+export async function getServerSideProps(context) {
+  try {
+    console.log('Log Server Side');
+    const dataCookie = cookies(context);
+    const page = !context.query?.page ? 1 : context.query.page;
+    const result = await axiosServer.get(
+      `/transaction/history?page=1&limit=2&filter=MONTH`,
+      {
+        headers: {
+          Authorization: `Bearer ${dataCookie.token}`,
+        },
+      }
+    );
+    return {
+      props: {
+        data: result.data.data,
+        pagination: result.data.pagination,
+      },
+    };
+  } catch (error) {
+    if (error.response.status === 403) {
+      return {
+        redirect: {
+          destination: '/auth/login',
+          permanent: false,
+        },
+      };
+    } else {
+      return {
+        props: {
+          isError: true,
+          msg: error.response,
+        },
+      };
+    }
+  }
+}
+
+
+const Home = (props) => {
+  const router = useRouter();
+  const transfer = () => {
+    router.push('/private/transfer');
+  }
+  const topup = () => {
+    router.push('/private/top-up');
+  }
+
+  const [data, setData] = useState(props.data);
+
+  console.log('Log Client Slide');
+  const handleNextPage = () => {
+    router.push(`/rendering/ssr?page=${+router.query + 1}`);
+  };
+
   return (
     <>
-      <Main>
-        <div className="row border d-flex justify-content-between rounded-4 py-4 ps-4 main-section">
-          <div className="col">
+      <Main title='Home'>
+        <Row className="d-flex justify-content-between rounded-4 py-4 px-3 main-section shadow">
+          <Col>
             <span className="fs-18px">Balance</span>
             <h1 className="fs-40px">Rp120.000</h1>
             <p className="fs-14px">+62 813-9387-7946</p>
-          </div>
-          <div className="col-md-3 d-flex flex-column justify-content-evenly ps-md-4">
-            <a className="btn btn-primary btn-lg btn-main-section"><FiArrowUp className="mx-2" />Transfer</a>
-            <a className="btn btn-primary btn-lg btn-main-section mt-2"><FiPlus className="mx-2" />Top Up</a>
-          </div>
-        </div>
+          </Col>
+          <Col md={3} className="d-flex flex-column gap-2 justify-content-end py-1">
+            <Button className='btn btn-lg btn-main-section bg-371B58' onClick={transfer}><FiArrowUp className="me-3" />Transfer</Button>
+            <Button className='btn btn-lg btn-main-section bg-371B58' onClick={topup}><FiPlus className="me-3" />Top Up</Button>
+          </Col>
+        </Row>
         <Row className="mt-md-3">
-          <Col md={7} className="border bg-white rounded-4 p-4 mt-1">
+          <Col md={7} className="bg-white rounded-4 p-4 mt-1 shadow">
             <div className="d-flex justify-content-between">
               <Col md={8} className='m-2'>
                 <span className="input-group color-green-web pb-2 fs-22px"><FiArrowDown /></span>
@@ -42,25 +100,37 @@ const home = () => {
             </div>
           </Col>
 
-          <Col className="border bg-white rounded-4 ms-md-3 p-4 mt-1">
-            <div>
+          <Col className="bg-white rounded-4 ms-md-3 p-4 mt-1 shadow">
+            <Row>
               <Col className="d-flex justify-content-between mt-1">
                 <h1 className="fs-18px fw-bold mt-1">Transaction History</h1>
-                <a className="a-menu"><span className="fs-14px color-web">See
-                  all</span></a>
+                <Link href={'/private/all-transactions'} className="a-menu"><a className="fs-14px color-web fw-bold">See
+                  all</a></Link>
               </Col>
-            </div>
+            </Row>
 
             <div>
               <div className="nav justify-content-between d-flex align-items-center mt-4">
                 <div>
                   <Image src={Satu} alt="3.png" />
                 </div>
-                <div className="col">
-                  <h1 className="mt-3 fs-16px fw-bold ms-4" >Samuel</h1>
+                <Col>
+                  <h1 className="mt-3 fs-16px fw-bold ms-4">Samuel</h1>
                   <p className="fs-14px ms-4">Transfer</p>
-                </div>
+                </Col>
                 <span className="fs-16px fw-bold color-green-web">+Rp200000</span>
+                {data && data.map((item, i) => (
+                  <div key={item.id}>
+                    <div>
+                      <Image src={Satu} alt="3.png" />
+                    </div>
+                    <Col>
+                      <h1 className="mt-3 fs-16px fw-bold ms-4">{item.firstName}</h1>
+                      <p className="fs-14px ms-4">Transfer</p>
+                    </Col>
+                    <span className="fs-16px fw-bold color-green-web">+Rp200000</span>
+                  </div>
+                ))}
               </div>
             </div>
           </Col>
@@ -70,4 +140,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home;
